@@ -2,16 +2,15 @@ import random
 import time
 import os
 
-toad = [
-	[0,0,0,0,0,0],
-	[0,0,0,0,0,0],
-	[0,0,1,1,1,0],
-	[0,1,1,1,0,0],
-	[0,0,0,0,0,0],
-	[0,0,0,0,0,0]	
-]
-
 CHANCE_DEAD = 0.2
+TOAD = "./toad.txt"
+GGG = "./GGG.txt"
+
+HOT_EMOJI = '\U0001F975'
+DEVIL_EMOJI = '\U0001F608'
+TREE_EMOJI = '\U0001F332'
+CHIPMUNK_EMOJI = '\U0001F43F'
+CUNEIFORM = '\U00012031'
 
 def dead_state(height, width):
 	state = []
@@ -34,9 +33,9 @@ def random_state(height, width):
 				state[list][cell] = 1
 	return state
 
-def render(state):
-	alive = '#\U00002591'
-	dead = '_|'
+def render(state, alive = '#\U00002591', dead = '_|'):
+	alive = alive
+	dead = dead
 	for list in range(len(state)):
 		for cell in state[list]:
 			if cell == 0:
@@ -114,18 +113,31 @@ def count_alive(check_m):
 				num_alive += 1
 	return num_alive
 
+def load_board_state(filepath, h = 10, w = 10):
+	if filepath == "random":
+		return random_state(h, w)
+
+	state = []
+	with open(filepath, "r") as f:
+		for line in f:
+			line_s = []
+			for s in line:
+				if s != '\n':
+					s = int(s)
+					line_s.append(s)
+			state.append(line_s)
+	return state
 
 if __name__ == "__main__":
-	w = 25
-	h = 25
-	game_state = random_state(h,w)
-	#game_state = toad
+
+	# enter ("random", h, w) for random
+	game_state = load_board_state(GGG)
 
 	while True:
 		os.system('clear')
 		render(game_state)
 		game_state = next_board_state(game_state)
-		time.sleep(0.375)
+		time.sleep(0.075)
 
 
 
