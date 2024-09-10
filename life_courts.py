@@ -2,7 +2,7 @@ import random
 import time
 import os
 
-CHANCE_DEAD = 0.2
+CHANCE_DEAD = 0.3
 TOAD = "./toad.txt"
 GGG = "./GGG.txt"
 
@@ -33,7 +33,7 @@ def random_state(height, width):
 				state[list][cell] = 1
 	return state
 
-def render(state, alive = '#\U00002591', dead = '_|'):
+def render(state, alive='#\U00002591', dead='_|'):
 	alive = alive
 	dead = dead
 	for list in range(len(state)):
@@ -131,7 +131,7 @@ def load_board_state(filepath, h = 10, w = 10):
 if __name__ == "__main__":
 
 	# enter ("random", h, w) for random
-	game_state = load_board_state(GGG)
+	game_state = load_board_state("random", 15, 40)
 
 	while True:
 		os.system('clear')
